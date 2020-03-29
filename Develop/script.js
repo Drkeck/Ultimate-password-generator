@@ -1,37 +1,43 @@
 // Assignment code here
-var generatepassword = function() {
+var generatePassword = function() {
   var lengthprompt = window.prompt("how long would you like your password to be? \n Min: 8 \n Max: 128");
-  lengthprompt = parseInt(lengthprompt)
-  if (lengthprompt <= 7 || lengthprompt >= 129 || lengthprompt === null || lengthprompt === "") {
+    if (lengthprompt === "" || lengthprompt === null) {
+      window.alert("please input a number");
+      generatePassword();
+    }
+  lengthprompt = parseInt(lengthprompt);
+  if (lengthprompt <= 7 || lengthprompt >= 129) {
     window.alert("please select proper passsword length");
-    return generatepassword();
+    generatePassword();
   }
+  // confirm lower case
+  charArray.confirmL();
 
-  var lowerCaseConfirm = window.confirm("Would you like your password to include lower case letters?");
-  if (lowerCaseConfirm) {
-    
-  } else {
-    charArray.lower = "";
-  }
-  var upperCaseConfirm = window.confrim("Would you like your password to include upper case letters?");
-  if (upperCaseConfirm) {
-    
-  } else{
-    charArray.upper = "";
-  }
-  var numberConfirm = window.confirm("would you like your password to include numbers?");
-  if (numberConfirm) {
+  //confrim upper case
+  charArray.confrimU();
 
-  } else {
-    charArray.number = ""
-  }
-  var symbolConfirm = window.confirm("would you like your password to include symbols?");
-  if (symbolConfirm) {
+  //confrim numbers
+  charArray.confirmN();
 
-  }else {
-    charArray.symbol = ""
-  }
+  //confirm symbols
+  charArray.confirmS();
 
+  //combine all arrays
+  charArray.combine();
+
+  //if line is empty
+  if (charArray.array === "") {
+    alert("Please select at least one thing to include in your randomly generated password. \n Click the button to try again.");
+    generatePassword();
+  } 
+  else {
+    //make a password from array
+    var displayPass = '';
+    for(var i = 0; i < lengthprompt; i++) {
+    displayPass += charArray.array[Math.floor(Math.random() * charArray.array.length)];
+    }
+    return displayPass;
+  }
 }
 
 //variables for password.
@@ -40,9 +46,41 @@ var charArray = {
   upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   number: "1234567890",
   symbol: "!#$%&*+,-./:;<=>?@[]^_{|}~",
+  array: "",
   combine: function() {
-    array = this.lower.concat(this.upper, this.number, this.symbol);
-    return array;
+    this.array = this.lower.concat(this.upper, this.number, this.symbol);
+  },
+  confirmL: function() {
+      var lowerCaseConfirm = confirm("Would you like your password to include lower case letters?");
+      if (lowerCaseConfirm) {
+         this.lower = 'abcdefghijklmnopqrstuvwxyz'
+      } else {
+          this.lower = "";
+      }
+  },
+  confrimU: function() {
+      var upperCaseConfirm = confirm("Would you like your password to include upper case letters?");
+      if (upperCaseConfirm) {
+          this.upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      } else {
+          this.upper = "";
+      }
+  },
+  confirmN: function() {
+      var numberConfirm = confirm("Would you like numbers included in your password?");
+      if (numberConfirm) {
+        this.number = "1234567890";
+      } else {
+        this.number = "";
+      }
+  },
+  confirmS: function() {
+    var symbolconfirm = confirm("Would you like symbols to be included in your password?");
+    if (symbolconfirm) {
+      this.symbol = "!#$%&*+,-./:;<=>?@[]^_{|}~"
+    } else {
+      this.symbol = ""
+    }
   }
 }
 // Get references to the #generate element
