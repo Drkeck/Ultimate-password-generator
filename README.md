@@ -6,5 +6,5 @@ with this you can
 
 # [Deployed here!](https://drkeck.github.io/Ultimate-password-generator/)
 
-!(image of password generation)[./assets/images/Readme.gif]
+![image of password generation](./assets/images/Readme.gif)
 
