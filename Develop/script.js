@@ -1,7 +1,7 @@
 // Assignment code here
 var generatePassword = function() {
   var lengthprompt = window.prompt("how long would you like your password to be? \n Min: 8 \n Max: 128");
-  debugger;
+    // checks if the peramiters are met, if not its dropped and need to try again.
     if (lengthprompt < 8 || lengthprompt > 128 || isNaN(lengthprompt) == true) {
       window.alert("please select proper passsword length");
     } else {
@@ -15,6 +15,7 @@ var generatePassword = function() {
       else {
         //make a password from array
         var displayPass = '';
+        //loop untill desired length of password is met
         for(var i = 0; i < lengthprompt; i++) {
         displayPass += charArray.array[Math.floor(Math.random() * charArray.array.length)];
         }
@@ -32,24 +33,28 @@ var charArray = {
   symbol: "!#$%&*+,-./:;<=>?@[]^_{|}~",
   array: "",
   combine: function() {
+    // Ask for lower case for password
     var lowerCaseConfirm = confirm("Would you like your password to include lower case letters?");
     if (lowerCaseConfirm) {
         this.lower = 'abcdefghijklmnopqrstuvwxyz'
     } else {
         this.lower = "";
     }
+    // Ask for upper case for password
     var upperCaseConfirm = confirm("Would you like your password to include upper case letters?");
     if (upperCaseConfirm) {
          this.upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     } else {
         this.upper = "";
     }
+    // Ask for numbers for password
     var numberConfirm = confirm("Would you like numbers included in your password?");
     if (numberConfirm) {
       this.number = "1234567890";
     } else {
       this.number = "";
     }
+    //Ask for symbols in password
     var symbolconfirm = confirm("Would you like symbols to be included in your password?");
     if (symbolconfirm) {
       this.symbol = "!#$%&*+,-./:;<=>?@[]^_{|}~"
@@ -59,6 +64,7 @@ var charArray = {
     this.array = this.lower.concat(this.upper, this.number, this.symbol);
   }
 }
+
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
